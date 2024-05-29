@@ -11,3 +11,12 @@ building professional relationships that can lead to innovative ideas and
 solutions in various fields. Through CampusThreads, the academic world
 becomes more interconnected, offering a wealth of opportunities for
 growth and development.
+
+# Steps to run components of website
+
+1.Download the folder of the component you want to run.<br />
+2.Then open the terminal, go the location of that folder you downloaded.<br />
+3.Run command "npm install".<br />
+4.Run Command "npm run dev".<br />
+5.The terminal will give you local host link and then run it in your browser.<br />
+
