@@ -12,11 +12,17 @@ solutions in various fields. Through CampusThreads, the academic world
 becomes more interconnected, offering a wealth of opportunities for
 growth and development.
 
-# Steps to run components of website
+# Figma File Link
+
+ [Campus Threads Figma](https://www.figma.com/design/OQg7HBhzNugw2VMN6NFHYP/Campus-Threads?node-id=0-1&t=aGHfc4Wk6ywv9Fmy-1)(it could take some time to load some designs in figma so please wait for some time).
+
+# Steps to run components of website(some can components can be in branch location)
 
 1.Download the folder of the component you want to run.<br />
 2.Then open the terminal, go the location of that folder you downloaded.<br />
 3.Run command "npm install".<br />
 4.Run Command "npm run dev".<br />
 5.The terminal will give you local host link and then run it in your browser.<br />
+
+
 
