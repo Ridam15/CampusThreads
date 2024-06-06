@@ -71,7 +71,7 @@ const OTPPage = () => {
             signupData.otp = enteredOTP;
 
             // After OTP verification, you can send the signup data (including OTP) to the signup API
-            const response = await fetch('https://campusconnectbackend.onrender.com/api/v1/auth/signup', {
+            const response = await fetch('http://localhost:3000/api/v1/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
