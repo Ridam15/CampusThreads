@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import img from "./img.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import RadioButton from "./RadioButton";
+import IconButton from "@mui/material/IconButton";
+import InputLabel from "@mui/material/InputLabel";
+import Visibility from "@mui/icons-material/Visibility";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Input from "@mui/material/Input";
+// import "./styles.css"; // Import your custom CSS file
 
 function SignUpForm() {
     const navigate = useNavigate();
@@ -15,6 +22,8 @@ function SignUpForm() {
     });
 
     const [value, setValue] = useState("Student");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleChange = (evt) => {
         const value = evt.target.value;
@@ -74,7 +83,6 @@ function SignUpForm() {
         }
     };
 
-
     const handleOnSubmit = async (evt) => {
         evt.preventDefault();
 
@@ -133,6 +141,18 @@ function SignUpForm() {
         }
     };
 
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    const handleClickShowConfirmPassword = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    };
+
     return (
         <div className="form-container sign-up-container">
             <form onSubmit={handleOnSubmit}>
@@ -170,23 +190,41 @@ function SignUpForm() {
                     placeholder="Email"
                     required
                 />
-                <input
-                    type="password"
+                <Input
+                    type={showPassword ? "text" : "password"}
                     name="password"
+                    placeholder="Password"
                     value={state.password}
                     onChange={handleChange}
-                    placeholder="Password"
-                    id="password"
-                    required
+                    className="custom-input" // Apply custom CSS class
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
                 />
-                <input
-                    type="password"
+                <Input
+                    type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
+                    placeholder="Confirm Password"
                     value={state.confirmPassword}
                     onChange={handleChange}
-                    placeholder="Confirm Password"
-                    id="confirm_password"
-                    required
+                    className="custom-input" // Apply custom CSS class
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                onClick={handleClickShowConfirmPassword}
+                                onMouseDown={handleMouseDownPassword}
+                            >
+                                {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
                 />
                 <RadioButton value={value} handleChange={(evt) => setValue(evt.target.value)} />
                 {isFormSubmitted ? (

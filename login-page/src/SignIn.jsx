@@ -1,13 +1,18 @@
-//Signin.jsx
 import React from "react";
 import img from "./img.jpg";
 import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import InputAdornment from "@mui/material/InputAdornment";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Input from "@mui/material/Input";
 
 function SignInForm() {
     const [state, setState] = React.useState({
         email: "",
         password: "",
         rememberMe: false, // Added rememberMe state
+        showPassword: false, // Added showPassword state
     });
 
     // Load saved credentials from local storage on component mount
@@ -16,12 +21,12 @@ function SignInForm() {
         const savedPassword = localStorage.getItem("rememberedPassword");
 
         if (savedEmail && savedPassword) {
-            setState({
-                ...state,
+            setState((prevState) => ({
+                ...prevState,
                 email: savedEmail,
                 password: savedPassword,
                 rememberMe: true,
-            });
+            }));
         }
     }, []);
 
@@ -62,13 +67,23 @@ function SignInForm() {
         }
     };
 
-
     const handleRememberMeChange = (evt) => {
         const isChecked = evt.target.checked;
         setState({
             ...state,
             rememberMe: isChecked,
         });
+    };
+
+    const handleClickShowPassword = () => {
+        setState({
+            ...state,
+            showPassword: !state.showPassword,
+        });
+    };
+
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
     };
 
     const handleOnSubmit = (evt) => {
@@ -87,7 +102,7 @@ function SignInForm() {
             },
             body: JSON.stringify({ email, password }),
         })
-        
+
             .then((response) => {
                 // console.log(response);
                 if (response.ok) {
@@ -139,12 +154,25 @@ function SignInForm() {
                     value={state.email}
                     onChange={handleChange}
                 />
-                <input
-                    type="password"
+                {/* <input /> */}
+                {/* <InputLabel htmlFor="standard-adornment-password"></InputLabel> */}
+                <Input
+                    type={state.showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Password"
                     value={state.password}
+                    className="custom-input"
                     onChange={handleChange}
+                    endAdornment={
+                        <InputAdornment position="end">
+                            <IconButton
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                            >
+                                {state.showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    }
                 />
                 <div className="con">
                     <div className="remb">
