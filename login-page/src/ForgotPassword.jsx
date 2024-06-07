@@ -49,23 +49,23 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className='body3'>
-            <div className="forgot-password-container ">
-                <form className="forgot-password-form" onSubmit={handleSubmit}>
-                    <h2>Forgot Password?</h2>
-                    <label htmlFor="email">Enter Registered Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <button type="submit">Reset Password</button>
-                    {message && <p className="message">{message}</p>}
-                </form>
-            </div>
+        // <div className='body3'>
+        <div className="forgot-password-container ">
+            <form className="forgot-password-form" onSubmit={handleSubmit}>
+                <h2>Forgot Password?</h2>
+                <label htmlFor="email">Enter Registered Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <button type="submit">Reset Password</button>
+                {message && <p className="message">{message}</p>}
+            </form>
         </div>
+        // </div>
     );
 };
 
