@@ -14,7 +14,7 @@ growth and development.
 
 # Figma File Link
 
- [Campus Threads Figma](https://www.figma.com/design/OQg7HBhzNugw2VMN6NFHYP/Campus-Threads?node-id=0-1&t=aGHfc4Wk6ywv9Fmy-1)(it could take some time to load some designs in figma so please wait for some time).
+ [Campus Threads Figma](https://www.figma.com/design/OQg7HBhzNugw2VMN6NFHYP/Campus-Threads?node-id=0-1&t=aGHfc4Wk6ywv9Fmy-1) (it could take some time to load some designs in figma so please wait for some time).
 
 # Steps to run components of website(some components can be in branch location)
 
