@@ -4,6 +4,7 @@ const otpGenerator = require("otp-generator");
 const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Profile = require("../models/Profile");
 require("dotenv").config();
 
 exports.sendOTP = async (req, res) => {
@@ -116,6 +117,14 @@ exports.sendOTP = async (req, res) => {
       }
   
       const hashedPassword = await bcrypt.hash(password, 10);
+
+      const profileDetails = await Profile.create({
+        gender: null,
+        dateOfBirth: null,
+        about: null,
+        collegeName: null,
+        collegeBranch: null,
+      });
   
       const user = await User.create({
         firstName,
@@ -123,6 +132,10 @@ exports.sendOTP = async (req, res) => {
         email,
         password: hashedPassword,
         accountType,
+        additionalDetails: profileDetails._id,
+      profilePicture: `https://api.dicebear.com/7.x/initials/svg?seed=${firstName} ${lastName}`,
+      coverPicture:
+        "https://images.pexels.com/photos/13095812/pexels-photo-13095812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       });
   
       await OTP.findByIdAndDelete(recentOTP[0]._id);
