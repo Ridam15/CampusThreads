@@ -5,6 +5,8 @@ import SchoolIcon from '@mui/icons-material/School';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import WorkIcon from '@mui/icons-material/Work';
 import FriendsPage from './FriendsPage'; // Import the FriendsPage component
 
 const StyledButton = styled(Button)(({ theme }) => ({
@@ -95,16 +97,21 @@ function Profilecomp({ onEditClick }) {
           <div className="flex w-5/10 flex-wrap mr-0">
             <div className="flex justify-between ">
               <p className="ml-0 pt-4 font-semibold text-2xl">{userData.firstName} {userData.lastName}</p>
+              {userData.accountType === 'student' ? <EmojiPeopleIcon className="mt-10" /> : <WorkIcon className="mt-10" />}
             </div>
             {userData.additionalDetails?.dateOfBirth && (
               <div className="ml-0 mt-2 text-xl">Date of Birth : {formatDOB(userData)}</div>
             )}
-            <div className="ml-0 mt-2 text-xl mr-10">
-              <SchoolIcon className="mr-2" /> College : {userData.additionalDetails?.collegeName}
-            </div>
-            <div className="ml-0 mt-2 text-xl items-center">
-              <EngineeringIcon className="mr-2" /> Branch : {userData.additionalDetails?.collegeBranch}
-            </div>
+            {userData.additionalDetails?.collegeName &&
+              <div className="ml-0 mt-2 text-xl mr-10">
+                <SchoolIcon className="mr-2" /> College : {userData.additionalDetails?.collegeName}
+              </div>
+            }
+            {userData.additionalDetails?.collegeBranch &&
+              <div className="ml-0 mt-2 text-xl items-center">
+                <EngineeringIcon className="mr-2" /> Branch : {userData.additionalDetails?.collegeBranch}
+              </div>
+            }
           </div>
           <div className="flex flex-wrap justify-start items-center space-x-6 mt-5">
             <StyledButton
