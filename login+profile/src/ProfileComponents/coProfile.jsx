@@ -1,17 +1,33 @@
 // Profile.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SchoolIcon from '@mui/icons-material/School';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import FriendsPage from './FriendsPage'; // Import the FriendsPage component
 
+const StyledButton = styled(Button)(({ theme }) => ({
+  borderRadius: '20px',
+  padding: '6px 12px',
+  textTransform: 'none',
+  boxShadow: '0px 3px 5px 2px rgba(0, 0, 0, 0.2)',
+}));
 
 function Profilecomp({ onEditClick }) {
-
   const [userData, setUserData] = useState({});
+  const [isFriendsPageOpen, setFriendsPageOpen] = useState(false);
+
+  const handleFriendsClick = () => {
+    setFriendsPageOpen(true);
+  };
   const navigate = useNavigate();
+
   useEffect(() => {
     const token = localStorage.getItem("Token");
     const fetchData = async () => {
       try {
-        const response = await fetch('', {
+        const response = await fetch('http://localhost:3000/api/v1/profile/getUserDetails', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -20,7 +36,8 @@ function Profilecomp({ onEditClick }) {
         });
 
         const data = await response.json();
-        console.log(data.data);
+
+        console.log(data.data.profilePicture);
         setUserData(data.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -32,109 +49,86 @@ function Profilecomp({ onEditClick }) {
   }, []);
 
   const formatDOB = (dob) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dob).toLocaleDateString(undefined, options);
+    if (dob && dob.additionalDetails && dob.additionalDetails.dateOfBirth) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dob.additionalDetails.dateOfBirth).toLocaleDateString(undefined, options);
+    }
+    return '';
   };
 
   return (
-    <div className="">
+    <div className="relative">
       <div>
         <img
-          src='https://images.pexels.com/photos/13095812/pexels-photo-13095812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+          src={userData.coverPicture ? userData.coverPicture : 'https://images.pexels.com/photos/13095812/pexels-photo-13095812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
           className="mt-4 mb-4 rounded-xl w-full px-48 h-40 object-cover "
           alt="ProfileCoverPage"
         />
       </div>
       <div className="flex mr-0">
-        <div className="ml-48 mt-4 pl-8">
-          <img src={userData.profilePicture}
-            className="w-32 h-32 bg-blue-100 rounded-full border-2 border-2xl border-black"
-            alt="ProfilePicture"
-          />
+        <div className="ml-48 mt-4 pl-8 mr-5">
+          <div className="flex justify-start items-center space-x-16">
+            <img src={userData.profilePicture}
+              className="flex justify-start items-center space-x-16 ml-10 w-32 h-32 bg-blue-100 rounded-full border-2 border-2xl border-black"
+              alt="ProfilePicture"
+            />
+          </div>
+          <div className="flex justify-start items-center space-x-6 mt-4">
+            <span
+              className="text-light-blue-600 hover:text-blue-800 flex items-center cursor-pointer"
+              onClick={handleFriendsClick}
+            >
+              <i className="fas fa-user-friends fa-sm mr-2 text-light-blue-600 hover:text-blue-800" />
+              <span className={`font-bold text-lg ${isFriendsPageOpen ? 'animate-fadeIn' : ''}`}>200 Friends</span>
+            </span>
+
+
+            <a href="#" className="text-light-blue-600 hover:text-light-blue-900 flex items-center">
+              <i className="fas fa-award fa-sm mr-2 text-light-blue-600 hover:text-light-blue-900" />
+              <span className="font-bold text-lg"> 156 Contributions</span>
+            </a>
+          </div>
         </div>
 
-
-
-        <div className="flex flex-col w-2/5 h-32 justify-between ml-10 ">
+        <div className="flex w-2/5 justify-between ml-0 ">
           {/* Profile details go here */}
-          <div className=" flex justify-between ">
-            <p className="ml-12 pt-4 font-semibold text-2xl">{userData.firstName} {userData.lastName}</p>
-
+          <div className="flex w-5/10 flex-wrap mr-0">
+            <div className="flex justify-between ">
+              <p className="ml-0 pt-4 font-semibold text-2xl">{userData.firstName} {userData.lastName}</p>
+            </div>
+            {userData.additionalDetails?.dateOfBirth && (
+              <div className="ml-0 mt-2 text-xl">Date of Birth : {formatDOB(userData)}</div>
+            )}
+            <div className="ml-0 mt-2 text-xl mr-10">
+              <SchoolIcon className="mr-2" /> College : {userData.additionalDetails?.collegeName}
+            </div>
+            <div className="ml-0 mt-2 text-xl items-center">
+              <EngineeringIcon className="mr-2" /> Branch : {userData.additionalDetails?.collegeBranch}
+            </div>
           </div>
-          <div className="ml-12 mt-2 text-xl">Date of Birth : {userData.additionalDetails ? formatDOB(userData.additionalDetails.dateOfBirth) : ''}</div>
-
-
-
-          <div className="flex justify-start items-center space-x-16 ">
-            <button
+          <div className="flex flex-wrap justify-start items-center space-x-6 mt-5">
+            <StyledButton
+              variant="contained"
+              color="primary"
+              size="small"
               onClick={onEditClick}
-              className="ml-10 w-28 h-12 mt-4 rounded-3xl bg-[#2553eb] border-2 border-black hover:bg-blue-600 text-white cursor-pointer"
             >
               Edit Profile
-            </button>
-            <button
-
-              className="w-32 h-12 rounded-3xl mt-4 bg-red-500 border-2 border-black hover:bg-red-600 hover:border-black hover:text-white text-white cursor-pointer"
+            </StyledButton>
+            <StyledButton
+              variant="contained"
+              color="secondary"
+              size="small"
             >
               Delete Profile
-            </button>
-            {/* <button className="w-28 h-12 rounded-3xl mt-4 bg-blue-200 border-2 border-black hover:bg-blue-400 hover:text-white cursor-pointer">
-              Your Posts
-            </button>
-            <button className="w-28 h-12 rounded-3xl mt-4 bg-blue-200 border-2 border-black hover:bg-blue-400 hover:text-white cursor-pointer">
-              Doubts Asked
-            </button> */}
+            </StyledButton>
           </div>
-
         </div>
-
-
       </div>
+
+      {isFriendsPageOpen && <FriendsPage onClose={() => setFriendsPageOpen(false)} />}
     </div>
   );
 }
 
 export default Profilecomp;
-
-
-// // Profilecomp.jsx
-// import React from "react";
-
-// function Profilecomp({ data, onEditClick }) {
-//   return (
-//     <div className="">
-//       <div>
-//         {/* Assuming 'profileImage' is a key in your data */}
-//         <img
-//           src={data && data.profileImage}
-//           className="mt-4 mb-4 rounded-xl w-full px-48 h-40"
-//           alt="Profile"
-//         />
-//       </div>
-//       <div className="flex mr-0">
-//         <div className="ml-48 mt-4 pl-8">
-//           <img className="w-32 h-32 bg-blue-100 rounded-full border-2 border-2xl border-black" />
-//         </div>
-//         <div className="flex flex-col w-2/5 h-32 justify-between ml-10">
-//           {/* Profile details go here */}
-//           <div className="flex justify-between">
-//             <p className="ml-6 pt-4 font-semibold text-2xl">{data && data.name}</p>
-//             <p className="pt-4 font-normal text-xl">{data && data.city}</p>
-//           </div>
-//           <div className="ml-6 mt-2 text-xl">{data && data.role}</div>
-//           <div className="flex justify-start items-center space-x-16">
-//             <button
-//               onClick={onEditClick}
-//               className="ml-10 w-28 h-12 mt-4 rounded-3xl bg-[#2553eb] border-2 border-black hover:bg-blue-600 text-white cursor-pointer"
-//             >
-//               Edit Profile
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Profilecomp;
-

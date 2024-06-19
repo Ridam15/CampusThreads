@@ -74,7 +74,7 @@ export default function Doubts() {
           <InputOption Icon={SubscriptionsIcon} title='Video' color='#E7A33E' />
         </div>
       </div> */}
-      {doubts ? doubts.map((doubts) => (
+      {/* {doubts ? doubts.map((doubts) => (
         <Post
           key={doubts._id}
           id={doubts._id}
@@ -88,8 +88,8 @@ export default function Doubts() {
           photoUrl={doubts.photoUrl}
           profileImg={doubts.createdBy.profilePicture} // Assuming the field is named photoUrl
         />
-      )) : null}
-      {/* 
+      )) : null} */}
+
       <Post
         name="Narendra Modi"
         description="Started with chai, now stirring policies"
@@ -97,12 +97,12 @@ export default function Doubts() {
         profileImg="https://bsmedia.business-standard.com/_media/bs/img/article/2015-05/05/full/1430823912-5957.jpg"
       />
 
-      <Post
+      {/* <Post
         name="Arvind Kejriwal"
         description="Muffler-wielding hero of commoners."
         message="Kejriwal's muffler - because solving political problems is a lot like staying warm in Delhi winters: wrap it up!"
         profileImg="https://indianmemetemplates.com/wp-content/uploads/Arvind-Kejriwal-wearing-floral-crown-843x1024.jpg"
-      />
+      /> */}
 
       <Post
         name="Rahul Gandhi"
@@ -116,7 +116,7 @@ export default function Doubts() {
         description="Once a cricket legend, now... well, still figuring out politics"
         message="Imran Khan's playbook: swing in cricket, swing in politics – some things never change. Is he running a country or just another innings?"
         profileImg="https://static.toiimg.com/photo/msid-76340696,imgsize-37436/76340696.jpg"
-      /> */}
+      />
 
     </div>
   );

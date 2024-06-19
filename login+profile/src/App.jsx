@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 // import Home from './Home.jsx';
 import Profile from './Profile.jsx';
 import Sign2 from './loginComp/Sign2.jsx';
-// import './App.css';
+import './App.css';
 
 function App() {
 

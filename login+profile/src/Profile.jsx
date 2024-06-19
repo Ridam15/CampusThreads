@@ -13,7 +13,6 @@ import Header from "./ProfileComponents/Header";
 
 
 
-
 function Profile() {
     const [showEdit, setShowEdit] = useState(false);
 
@@ -35,8 +34,9 @@ function Profile() {
                 ) : (
                     <div>
                         <Profilecomp onEditClick={handleEditClick} />
-                        {/* <About />
-                        <Tab /> */}
+                        {/* <Experience /> */}
+                        <About />
+                        <Tab />
                     </div>
                 )}
             </div>

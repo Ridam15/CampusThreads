@@ -18,7 +18,7 @@
   box-sizing: border-box;
 }
 
-body {
+.App {
   background: linear-gradient(to top, #63799b, #5a3b63);
   display: flex;
   justify-content: center;
@@ -26,16 +26,17 @@ body {
   flex-direction: column;
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  margin: -2px 0 0px;
 }
 
 h1 {
   font-weight: bold;
   margin: 0 0 10px 0;
+  font-size: 30px;
 }
 
 h2 {
   text-align: center;
+  font-size: 20px;
 }
 
 p {
@@ -253,9 +254,9 @@ input#remember.remember {
 
 
 .logo p img {
-  /* display: inline; */
+  display: inline;
   margin: 2px 0 0 2px;
-  width: 40px;
+  width: 45px;
 }
 
 
@@ -266,9 +267,9 @@ input#remember.remember {
   position: relative;
   overflow: auto;
   width: 1100px;
-  height: 90%;
+  height: 85%;
   /* max-width: 1000px; */
-  min-height: 550px;
+  /* min-height: 550px; */
   display: flex;
 }
 

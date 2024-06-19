@@ -1,6 +1,6 @@
 import React from "react";
 import img from "./img.jpg";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -8,6 +8,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Input from "@mui/material/Input";
 
 function SignInForm() {
+    const navigate = useNavigate();
     const [state, setState] = React.useState({
         email: "",
         password: "",
@@ -108,6 +109,7 @@ function SignInForm() {
                 if (response.ok) {
                     // console.log(response.json());
                     alert("Logged in successfully.");
+                    navigate("/profile");
                     return response.json();
                 } else {
                     throw new Error("Login failed");

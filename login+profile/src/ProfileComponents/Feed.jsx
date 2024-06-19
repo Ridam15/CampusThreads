@@ -75,7 +75,7 @@ export default function Feed() {
           <InputOption Icon={SubscriptionsIcon} title='Video' color='#E7A33E' />
         </div>
       </div> */}
-      {posts.map((post) => (
+      {/* {posts.map((post) => (
         <Post
           key={post._id}
           id={post._id}
@@ -88,8 +88,8 @@ export default function Feed() {
           photoUrl={post.fileUrl} // Assuming the field is named photoUrl
           profileImg={post.createdBy.profilePicture}
         />
-      ))}
-      {/* 
+      ))} */}
+
       <Post
         name="Narendra Modi"
         description="Started with chai, now stirring policies"
@@ -116,7 +116,7 @@ export default function Feed() {
         description="Once a cricket legend, now... well, still figuring out politics"
         message="Imran Khan's playbook: swing in cricket, swing in politics – some things never change. Is he running a country or just another innings?"
         profileImg="https://static.toiimg.com/photo/msid-76340696,imgsize-37436/76340696.jpg"
-      /> */}
+      />
     </div>
   );
 }

@@ -8,7 +8,7 @@ const About = () => {
     const token = localStorage.getItem("Token");
     const fetchData = async () => {
       try {
-        const response = await fetch('', {
+        const response = await fetch('http://localhost:3000/api/v1/profile/getUserDetails', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,11 @@ const About = () => {
       <div className=" text-align-center ml-48 pl-5 mt-8">
         <p className="font-bold text-3xl">About</p>
         <div className="mt-4 font-normal text-xl">
-          {userData.about}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: userData.additionalDetails ? userData.additionalDetails.about : '',
+            }}
+          />
         </div>
 
       </div></div>

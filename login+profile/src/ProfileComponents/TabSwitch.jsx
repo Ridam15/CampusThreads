@@ -24,7 +24,7 @@ export default function ColorTabs() {
         aria-label="secondary tabs example"
       >
         <Tab value="one" label="Your Posts" />
-        <Tab value="two" label="Doubts" />
+        <Tab value="two" label="Your Q&A" />
       </Tabs>
 
       {value === 'one' && (
