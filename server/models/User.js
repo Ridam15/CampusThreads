@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema({
       required: true,
       ref: "Profile",
     },
+    community: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Community",
+      },
+    ],
     profilePicture: {
       type: String,
     },
@@ -42,6 +48,18 @@ const userSchema = new mongoose.Schema({
     reserPasswordExpires: {
       type: Date,
     },
+    interestedTags: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tag",
+      },
+    ],
+    posts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+    ],
   });
   
   module.exports = mongoose.model("User", userSchema);

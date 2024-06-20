@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const Profile = require("../models/Profile");
 const User = require("../models/User");
-const uploadToCloudinary = require("../utils/uploadToCloudinary");
+// const uploadToCloudinary = require("../utils/uploadToCloudinary");
+const Comment = require("../models/Comment");
+const Post = require("../models/Post");
 
 exports.updateProfile = async (req, res) => {
     try {
@@ -13,6 +15,8 @@ exports.updateProfile = async (req, res) => {
         collegeBranch,
         firstName,
         lastName,
+        profilePhotoUrl,
+        coverPhotoUrl
       } = req.body;
       const id = req.user.id;
   
@@ -21,13 +25,15 @@ exports.updateProfile = async (req, res) => {
   
       if (firstName) userDetails.firstName = firstName;
       if (lastName) userDetails.lastName = lastName;
+      if(profilePhotoUrl) userDetails.profilePicture = profilePhotoUrl;
+      if(coverPhotoUrl) userDetails.coverPicture = coverPhotoUrl;
       await userDetails.save();
   
-      profile.dateOfBirth = dateOfBirth;
-      profile.about = about;
-      profile.gender = gender;
-      profile.collegeName = collegeName;
-      profile.collegeBranch = collegeBranch;
+      if (dateOfBirth) profile.dateOfBirth = dateOfBirth;
+      if (about) profile.about = about;
+      if(gender) profile.gender = gender;
+      if(collegeName) profile.collegeName = collegeName;
+      if(collegeBranch) profile.collegeBranch = collegeBranch;
   
       await profile.save();
   
@@ -63,7 +69,19 @@ exports.updateProfile = async (req, res) => {
         _id: new mongoose.Types.ObjectId(user.additionalDetails),
       });
 
+      for (const communityID of user.community) {
+        await Course.findByIdAndUpdate(
+          communityID,
+          { $pull: { members: id } },
+          { new: true }
+        );
+      }
+
       await User.findByIdAndDelete({ _id: id });
+
+      await Comment.deleteMany({ userId: id });
+    await Like.deleteMany({ userId: id });
+    await Post.deleteMany({ userId: id });
 
       res.status(200).json({
         success: true,
@@ -79,6 +97,7 @@ exports.updateProfile = async (req, res) => {
       const id = req.user.id;
       const userDetails = await User.findById(id)
         .populate("additionalDetails")
+        .populate("interestedTags")
         .exec();
       res.status(200).json({
         success: true,
@@ -93,26 +112,48 @@ exports.updateProfile = async (req, res) => {
     }
   };
 
-  exports.updateProfilePicture = async (req, res) => {
+  exports.getUserPost = async (req, res) => {
     try {
-      const profilePicture = req.files.profilePicture;
-      const userId = req.user.id;
+      const id = req.user.id;
   
-      const image = await uploadToCloudinary(
-        profilePicture,
-        process.env.FOLDER_NAME
-      );
+      const user = await User.findById(id);
   
-      const updatedProfile = await User.findByIdAndUpdate(
-        { _id: userId },
-        { profilePicture: image.secure_url },
-        { new: true }
-      );
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
   
-      res.send({
+      const posts = await Post.find({ createdBy: id })
+        .populate("createdBy")
+        .populate("comments")
+        .populate("likes")
+        .populate("tags")
+        .populate("community")
+        .exec();
+  
+      res.status(200).json({
         success: true,
-        message: `Image Updated successfully`,
-        data: updatedProfile,
+        message: "User Data fetched successfully",
+        data: posts,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  exports.getUserMemberCommunity = async (req, res) => {
+    try {
+      const id = req.user.id;
+      const user = await User.findById(id).populate("community").exec();
+      res.status(200).json({
+        success: true,
+        message: "User Data fetched successfully",
+        data: user,
       });
     } catch (error) {
       console.log(error);
@@ -123,39 +164,77 @@ exports.updateProfile = async (req, res) => {
     }
   };
 
-  exports.updateProfileCoverPage = async (req, res) => {
+  exports.getUserEntireDetails = async (req, res) => {
     try {
-      const userID = req.user.id;
-      const coverPicture = req.files.coverPicture;
-  
-      if (!coverPicture) {
-        return res.status(400).json({
-          success: false,
-          message: "coverPicture is missing",
-        });
-      }
-  
-      let user = await User.findById(userID);
+      const id = req.user.id;
+      const user = await User.findById(id)
+        .populate("additionalDetails")
+        .populate("community")
+        .populate("posts")
+        // .populate("doubts")
+        .exec();
+      res.status(200).json({
+        success: true,
+        message: "User Data fetched successfully",
+        data: user,
+      });
+    } catch (error) {
+      console.log("Error occured while fetching user details");
+      console.log(error);
+    }
+  };
+
+  exports.getotheruserdetails = async (req, res) => {
+    try {
+      const userID = req.body.userID;
+      const user = await User.findById(userID)
+        .populate("additionalDetails")
+        .populate("community")
+        .populate("posts")
+        // .populate("doubts")
+        .exec();
   
       if (!user) {
         return res.status(404).json({
           success: false,
-          message: "user not found",
+          message: "User not found",
         });
       }
   
-      const image = await uploadToCloudinary(
-        coverPicture,
-        process.env.FOLDER_NAME_COMMUNITY
-      );
-  
-      user.coverPicture = image.secure_url;
-      await user.save();
+      user.password = undefined;
+      user.token = undefined;
+      user.reserPasswordExpires = undefined;
   
       res.status(200).json({
         success: true,
-        message: "Profile cover page updated successfully",
+        message: "User Data fetched successfully",
         data: user,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  exports.getUserComments = async (req, res) => {
+    try {
+      const userId = req.user.id;
+  
+      const comments = Comment.find({ commentedBy: userId });
+  
+      if (!userID) {
+        return res
+          .status(404)
+          .json({ success: false, message: "User not found" });
+      }
+  
+      res.status(200).json({
+        success: true,
+        message: "User Data fetched successfully",
+        data: comments,
       });
     } catch (error) {
       console.log(error);

@@ -6,23 +6,24 @@ const {
   deleteAccount,
   updateProfile,
   getUserDetails,
-  updateProfilePicture,
   getUserPost,
   getUserMemberCommunity,
   getUserEntireDetails,
-  updateProfileCoverPage,
   getotheruserdetails,
-  getUserDoubts,
+  // getUserDoubts,
   getUserComments,
-  getUserAnswer,
+  // getUserAnswer,
 } = require("../controllers/Profile");
 
 router.delete("/deleteProfile", auth, deleteAccount);
 
 router.put("/updateProfile", auth, updateProfile);
-router.put("/updateProfilePicture", auth, updateProfilePicture);
-router.put("/updateProfileCoverPage", auth, updateProfileCoverPage);
 
 router.get("/getUserDetails", auth, getUserDetails);
+router.get("/getUserPosts", auth, getUserPost);
+router.get("/getUserMemberCommunity", auth, getUserMemberCommunity);
+router.get("/getUserEntireDetails", auth, getUserEntireDetails);
+router.post("/getotheruserdetails", auth, getotheruserdetails);
+router.get("/getUserComments", auth, getUserComments);
 
 module.exports = router;

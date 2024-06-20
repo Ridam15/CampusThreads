@@ -5,6 +5,8 @@ const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Profile = require("../models/Profile");
+const { passwordUpdated } = require("../utils/mailTemplates/passwordUpdated");
+const Community = require("../models/Community");
 require("dotenv").config();
 
 exports.sendOTP = async (req, res) => {
@@ -137,6 +139,12 @@ exports.sendOTP = async (req, res) => {
       coverPicture:
         "https://images.pexels.com/photos/13095812/pexels-photo-13095812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       });
+
+      const gencom = await Community.findOne({ name: "General" });
+      gencom.members.push(user._id);
+      await gencom.save();
+      user.community.push(gencom._id);
+      await user.save();
   
       await OTP.findByIdAndDelete(recentOTP[0]._id);
   
@@ -206,6 +214,77 @@ exports.sendOTP = async (req, res) => {
       return res.status(500).json({
         success: false,
         message: "Login Failure, please try again",
+      });
+    }
+  };
+
+  exports.changePassword = async (req, res) => {
+    try {
+      let { oldPassword, newPassword, confirmNewPassword } = req.body;
+      let userid = req.user.id;
+  
+      if (!oldPassword || !newPassword || !confirmNewPassword) {
+        return res.status(403).json({
+          success: false,
+          message: "All the fields are required",
+        });
+      }
+  
+      const user = await User.findById(userid);
+      if (!user) {
+        return res.status(400).json({
+          success: false,
+          message: "User does not Exists",
+        });
+      }
+  
+      const isOldPasswordValid = await bcrypt.compare(oldPassword, user.password);
+  
+      if (isOldPasswordValid) {
+        if (newPassword !== confirmNewPassword) {
+          return res.status(401).json({
+            success: false,
+            message: "Password and Confirm Password does not match",
+          });
+        }
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        const updateduser = await User.findOneAndUpdate(
+          { _id: userid },
+          { password: hashedNewPassword },
+          { new: true }
+        );
+  
+        try {
+          const emailRspomse = mailSender(
+            user.email,
+            `Password Updated Succesfully for Campus Threads`,
+            passwordUpdated(user.email, updateduser.firstName)
+          );
+        } catch (error) {
+          console.error(error);
+          return res.status(500).json({
+            success: false,
+            message: "Error occurred while sending email",
+            error: error.message,
+          });
+        }
+  
+        return res.status(200).json({
+          success: true,
+          message: "Password updated Successfully",
+        });
+      } else {
+        return res.status(401).json({
+          success: false,
+          message: "Password is incorrect",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "Something went wrong",
+        error: error.message,
       });
     }
   };
