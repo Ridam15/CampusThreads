@@ -5,6 +5,9 @@ import ImageIcon from "@mui/icons-material/Image";
 import { Link } from "react-router-dom";
 import Post from "./Post.jsx";
 import "./Feed.css";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // import styles for react-quill
+
 
 function Feed() {
   const [posts, setPosts] = useState([]);
@@ -29,6 +32,7 @@ function Feed() {
         if (response.ok) {
           const data = await response.json();
           setPosts(data.data);
+          // console.log(posts.likes.includes(localStorage.getItem("UserId")));
         } else {
           console.error("Failed to fetch posts");
         }
@@ -92,7 +96,7 @@ function Feed() {
         </div>
       </div>
 
-      {/* {posts.map((post) => (
+      {posts.map((post) => (
         <Post
           key={post._id}
           name={post.createdBy.firstName + " " + post.createdBy.lastName}
@@ -103,14 +107,15 @@ function Feed() {
           message={post.content}
           photoUrl={post.fileUrl}
           numLikes={post.likes.length}
-          liked__alr={post.likes.includes(localStorage.getItem("userId")) ? true : false}
-          color={post.likes.includes(localStorage.getItem("userId")) ? '#3480cd' : 'gray'}
+          liked__alr={post.likes.some(like => like._id === localStorage.getItem("UserId")) ? true : false}
+
+          color={post.likes.some(like => like._id === localStorage.getItem("UserId")) ? '#3480cd' : 'gray'}
           id={post._id}
           profilePicture={post.createdBy.profilePicture}
           accountType={post.createdBy.accountType}
         />
       ))}
-      {doubts
+      {/* {doubts
         ? doubts.map((doubts) => (
           <Post
             key={doubts._id}
@@ -132,7 +137,7 @@ function Feed() {
           />
         ))
         : null} */}
-      <Post
+      {/* <Post
         name="Ridam Chhapiya"
         // tags="Competitve Programmer"
         description="DAIICT'25"
@@ -155,7 +160,7 @@ function Feed() {
         // tags="Competitve Programmer"
         description="DAIICT'25"
         message="Hello everyone, My name is Deven and I am a student of Daiict."
-      />
+      /> */}
     </div>
   );
 }

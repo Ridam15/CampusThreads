@@ -28,7 +28,7 @@ const About = () => {
   }, []);
 
   return (
-    <div><hr className="mt-8 w-full "></hr>
+    <div className="w-4/5"><hr className="mt-8 w-full "></hr>
       <div className=" text-align-center ml-48 pl-5 mt-8">
         <p className="font-bold text-3xl">About</p>
         <div className="mt-4 font-normal text-xl">

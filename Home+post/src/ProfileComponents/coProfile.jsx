@@ -63,12 +63,12 @@ function Profilecomp({ onEditClick }) {
       <div>
         <img
           src={userData.coverPicture ? userData.coverPicture : 'https://images.pexels.com/photos/13095812/pexels-photo-13095812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}
-          className="mt-4 mb-4 rounded-xl w-full px-48 h-40 object-cover "
+          className="mt-4 mb-4 rounded-xl w-full px-48 h-44 object-cover "
           alt="ProfileCoverPage"
         />
       </div>
       <div className="flex mr-0">
-        <div className="ml-48 mt-4 pl-8 mr-5">
+        <div className="ml-48 mt-4 pl-4 mr-5">
           <div className="flex justify-start items-center space-x-16">
             <img src={userData.profilePicture}
               className="flex justify-start items-center space-x-16 ml-10 w-32 h-32 bg-blue-100 rounded-full border-2 border-2xl border-black"
@@ -94,7 +94,7 @@ function Profilecomp({ onEditClick }) {
 
         <div className="flex w-2/5 justify-between ml-0 ">
           {/* Profile details go here */}
-          <div className="flex w-5/10 flex-wrap mr-0">
+          <div className="flex w-5/10 flex-col mr-0">
             <div className="flex justify-between ">
               <p className="ml-0 pt-4 font-semibold text-2xl">{userData.firstName} {userData.lastName}</p>
               {userData.accountType === 'student' ? <EmojiPeopleIcon className="mt-10" /> : <WorkIcon className="mt-10" />}

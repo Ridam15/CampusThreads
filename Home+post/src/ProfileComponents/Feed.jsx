@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 // import InputOption from "./InputOption.jsx";
 import ImageIcon from "@mui/icons-material/Image";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import Post from "./Post.jsx";
+import Post from "../HomeAndPostComp/Post";
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
@@ -18,7 +18,7 @@ export default function Feed() {
     const fetchPosts = async () => {
       try {
         const response = await fetch(
-          "",
+          "http://localhost:3000/api/v1/profile/getUserPosts",
           {
             method: "GET",
             headers: {
@@ -35,7 +35,9 @@ export default function Feed() {
           // setAllDetails(data.data);
           console.log(data.data);
           setPosts(data.data);
-          // console.log(posts);
+          // if (posts?.likes?.includes(localStorage.getItem("UserId")))
+          //   console.log(1);
+          console.log(posts);
         } else {
           console.error("Failed to fetch posts");
         }
@@ -75,22 +77,26 @@ export default function Feed() {
           <InputOption Icon={SubscriptionsIcon} title='Video' color='#E7A33E' />
         </div>
       </div> */}
-      {/* {posts.map((post) => (
+      {posts.map((post) => (
         <Post
           key={post._id}
-          id={post._id}
           name={post.createdBy.firstName + " " + post.createdBy.lastName}
-          tags={post.tags}
           description={
             post.community ? post.community.name : "Deleted Community"
           }
+          tags={post.tags}
           message={post.content}
-          photoUrl={post.fileUrl} // Assuming the field is named photoUrl
-          profileImg={post.createdBy.profilePicture}
+          photoUrl={post.fileUrl}
+          numLikes={post.likes.length}
+          liked__alr={post?.likes?.some(like => like._id === localStorage.getItem("UserId"))}
+          color={post?.likes?.some(like => like._id === localStorage.getItem("UserId")) ? '#3480cd' : 'gray'}
+          id={post._id}
+          profilePicture={post.createdBy.profilePicture}
+          accountType={post.createdBy.accountType}
         />
-      ))} */}
+      ))}
 
-      <Post
+      {/* <Post
         name="Narendra Modi"
         description="Started with chai, now stirring policies"
         message="Modi's chai might be piping hot, but his speeches are scalding! #TeaAndTactics."
@@ -116,7 +122,7 @@ export default function Feed() {
         description="Once a cricket legend, now... well, still figuring out politics"
         message="Imran Khan's playbook: swing in cricket, swing in politics – some things never change. Is he running a country or just another innings?"
         profileImg="https://static.toiimg.com/photo/msid-76340696,imgsize-37436/76340696.jpg"
-      />
+      /> */}
     </div>
   );
 }

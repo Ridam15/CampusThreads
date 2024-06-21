@@ -143,7 +143,7 @@ const CreatePost = () => {
                             onChange={(value) => setContent(value)}
                             modules={{
                                 toolbar: [
-                                    [{ 'header': [1, 2, false] }],
+                                    [{ 'header': [1, 2, 3, false] }],
                                     ['bold', 'italic', 'underline', 'strike'],
                                     [{ 'list': 'ordered' }, { 'list': 'bullet' }],
                                     ['link', 'image'],
@@ -185,7 +185,7 @@ const CreatePost = () => {
                         />
                     </div>
 
-                    <div className="space-x-2">
+                    <div className="flex items-center space-x-2">
                         <FormControlLabel
                             control={
                                 <Switch

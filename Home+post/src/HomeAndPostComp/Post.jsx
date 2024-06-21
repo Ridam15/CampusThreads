@@ -8,6 +8,8 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import SmsRoundedIcon from '@mui/icons-material/SmsRounded';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 // import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import Typography from "@mui/material/Typography";
 // import header_img from "./header_pfp.png";
@@ -19,7 +21,7 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
   const [numOfLikes, setNumOfLikes] = useState(numLikes);
   const [likeColor, setLikeColor] = useState(color);
   const [isEditing, setIsEditing] = useState(false);
-  const [postMessage, setPostMessage] = useState(message);
+  const [postMessage, setPostMessage] = useState(JSON.parse(message));
   const [updatedMessage, setUpdatedMessage] = useState(message);
   const [postDetails, setPostDetails] = useState([]);
   const token = localStorage.getItem("Token");
@@ -30,7 +32,7 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
     // console.log(token);
     const fetchPostDetails = async () => {
       try {
-        const response = await fetch('', {
+        const response = await fetch('http://localhost:3000/api/v1/post/details', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -63,12 +65,50 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
     }
   }
 
-  const changeLikeButton = () => {
+  const changeLikeButton = async () => {
     if (liked) {
+      try {
+        const response = await fetch('http://localhost:3000/api/v1/post/unlike', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: JSON.stringify({ postId: id }),
+        });
+
+        if (response.ok) {
+          console.log('Post unliked successfully!');
+        } else {
+          console.error('Failed to unlike post');
+        }
+      } catch (error) {
+        console.error('Error unliking post:', error);
+        return;
+      }
       setNumOfLikes(numOfLikes - 1);
       setLiked(false);
       setLikeColor('gray');
     } else {
+      try {
+        const response = await fetch('http://localhost:3000/api/v1/post/like', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token,
+          },
+          body: JSON.stringify({ postId: id }),
+        });
+
+        if (response.ok) {
+          console.log('Post liked successfully!');
+        } else {
+          console.error('Failed to like post');
+        }
+      } catch (error) {
+        console.error('Error liking post:', error);
+        return;
+      }
       setNumOfLikes(numOfLikes + 1);
       setLiked(true);
       setLikeColor('#3480cd');
@@ -91,7 +131,7 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
       setPostMessage(updatedMessage);
 
       try {
-        const response = await fetch('', {
+        const response = await fetch('http://localhost:3000/api/v1/post/update', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -125,8 +165,8 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
         <div className="post__info">
           <h2>{name}</h2>
 
-          <div className='post__info__desc'>
-            <p className='post__info__desc'>/{description}</p>
+          <div className='post__info__desc m-0'>
+            <p className='post__info__desc m-0'>/{description}</p>
           </div>
         </div>
         <div>
@@ -176,7 +216,12 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
             onChange={(e) => setUpdatedMessage(e.target.value)}
           />
         ) : (
-          <p>{postMessage} {photoUrl ? <img src={photoUrl} alt='Post' className='post__image' /> : null}</p>
+          <ReactQuill
+            value={postMessage}
+            readOnly={true}
+            theme="bubble"
+            className="custom-quill"
+          />
         )}
       </div>
 
