@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import WorkIcon from '@mui/icons-material/Work';
-import FriendsPage from './FriendsPage'; // Import the FriendsPage component
+import FriendsPage from './FriendsPage';
+import MessagePage from './MessagePage';  // Import the FriendsPage component
 
 const StyledButton = styled(Button)(({ theme }) => ({
   borderRadius: '20px',
@@ -19,9 +20,13 @@ const StyledButton = styled(Button)(({ theme }) => ({
 function Profilecomp({ onEditClick }) {
   const [userData, setUserData] = useState({});
   const [isFriendsPageOpen, setFriendsPageOpen] = useState(false);
+  const [isMessagePageOpen, setMessagePageOpen] = useState(false);
 
   const handleFriendsClick = () => {
     setFriendsPageOpen(true);
+  };
+  const handleMessageClick = () => {
+    setMessagePageOpen(true);
   };
   const navigate = useNavigate();
 
@@ -129,11 +134,29 @@ function Profilecomp({ onEditClick }) {
             >
               Delete Profile
             </StyledButton>
+            {/* <StyledButton
+              variant="contained"
+              color="default"
+              size="small"
+            >
+              Message
+            </StyledButton> */}
+          </div>
+          <div className="flex flex-wrap justify-start items-center space-x-6 mt-5">
+            <StyledButton
+              variant="contained"
+              color="secondary"
+              size="small"
+              onClick={handleMessageClick}
+            >
+              Message
+            </StyledButton>
           </div>
         </div>
       </div>
 
       {isFriendsPageOpen && <FriendsPage onClose={() => setFriendsPageOpen(false)} />}
+      {isMessagePageOpen && <MessagePage onClose={() => setMessagePageOpen(false)} />}
     </div>
   );
 }
