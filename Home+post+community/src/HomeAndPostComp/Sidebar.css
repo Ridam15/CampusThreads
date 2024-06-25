@@ -1,7 +1,7 @@
 .sidebar {
     top: 80px;
-    position: sticky;   
-    width: 20%;
+    position: sticky;
+    width: 22%;
     border-radius: 10px;
     text-align: center;
     height: fit-content;
@@ -11,6 +11,8 @@
 
 .sidebar__avatar {
     margin-bottom: -10px;
+    width: 100px;
+    height: 100px;
     border: 2px solid white;
 }
 
@@ -21,6 +23,7 @@
     border: 1px solid lightgray;
     border-bottom: 0;
     border-top-right-radius: 10px;
+    /* height: 100px; */
     border-top-left-radius: 10px;
     background-color: white;
     padding-bottom: 10px;

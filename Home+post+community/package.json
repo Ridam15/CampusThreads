@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.23.1",
+    "react-tabs": "^6.0.2",
     "sendbird": "^3.1.33",
     "slate": "^0.103.0",
     "slate-react": "^0.105.0"

@@ -40,7 +40,7 @@ const Team = () => {
   const teamMembers = [
 
     { name: 'Ridam chapiya', imageUrl: 'https://res.cloudinary.com/dkpznoy8d/image/upload/v1718826048/sndymypsbhyxxalzxyzk.jpg', email: '202101113@daiict.ac.in', openLink: () => window.open('https://www.youtube.com/watch?v=IUSyV2BVh4A', '_blank') },
-    { name: 'Deven Patel', imageUrl: 'https://e0.365dm.com/22/12/2048x1152/skysports-lionel-messi-argentina_6000508.jpg', email: '202101264@daiict.ac.in', openLink: () => window.open('https://www.youtube.com/watch?v=IUSyV2BVh4A', '_blank') },
+    { name: 'Deven Patel', imageUrl: 'https://res.cloudinary.com/dkpznoy8d/image/upload/v1719311530/uiqsa1y0tiyytptcoydq.png', email: '202101264@daiict.ac.in', openLink: () => window.open('https://www.youtube.com/watch?v=IUSyV2BVh4A', '_blank') },
 
 
     // Add other team members

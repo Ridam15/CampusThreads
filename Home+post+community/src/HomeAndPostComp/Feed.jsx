@@ -96,7 +96,7 @@ function Feed() {
         </div>
       </div>
 
-      {posts.map((post) => (
+      {posts.slice().reverse().map((post) => (
         <Post
           key={post._id}
           name={post.createdBy.firstName + " " + post.createdBy.lastName}
@@ -108,7 +108,6 @@ function Feed() {
           photoUrl={post.fileUrl}
           numLikes={post.likes.length}
           liked__alr={post.likes.some(like => like._id === localStorage.getItem("UserId")) ? true : false}
-
           color={post.likes.some(like => like._id === localStorage.getItem("UserId")) ? '#3480cd' : 'gray'}
           id={post._id}
           profilePicture={post.createdBy.profilePicture}

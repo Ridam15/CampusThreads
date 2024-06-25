@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Avatar } from "@mui/material";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("Token");
@@ -32,16 +33,17 @@ function Sidebar() {
     fetchData();
   }, []);
 
-  // console.log(userData.coverPicture);
-
   return (
     <div className="sidebar">
       <div className="sidebar__top">
         <img src={userData.coverPicture} alt="" />
 
-        <Link to="/Profile">
-          <Avatar className="sidebar__avatar" src={userData.profilePicture} />
-        </Link>
+        <Avatar
+          sx={{ width: 70, height: 70 }} // Increase size of the Avatar
+          className="sidebar__avatar"
+          onClick={() => navigate("/Profile")}
+          src={userData.profilePicture}
+        />
         <h2>{userData.firstName}</h2>
         <h4>{userData.email}</h4>
       </div>
@@ -49,7 +51,7 @@ function Sidebar() {
       <div className="sidebar__stats">
         <div className="sidebar__stat">
           <p>No. of Contributions</p>
-          <p className="sidebar__statNum">{userData.contribution} 156</p>
+          <p className="sidebar__statNum">{userData.contribution} 15</p>
         </div>
       </div>
     </div>
