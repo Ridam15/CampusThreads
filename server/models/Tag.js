@@ -18,11 +18,11 @@ const tagSchema = new mongoose.Schema({
       ref: "Community",
     },
   ],
-//   doubts: [
-//     {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Doubt",
-//     },
-//   ],
+  doubts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Doubt",
+    },
+  ],
 });
 module.exports = mongoose.model("Tag", tagSchema);

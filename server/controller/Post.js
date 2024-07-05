@@ -34,7 +34,7 @@ exports.createPost = async (req, res) => {
 
     let fileUrl = "";
     if(pictureUrl) fileUrl = pictureUrl;
-    //   tagArray = [];
+    tagArray = [];
 
     // if (req.files && req.files.file) {
     //   const filei = await uploadToCloudinary(req.files.file);

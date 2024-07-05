@@ -27,12 +27,12 @@ const communitySchema = new mongoose.Schema({
       ref: "Post",
     },
   ],
-//   doubts: [
-//     {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "Doubt",
-//     },
-//   ],
+  doubts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Doubt",
+    },
+  ],
   moderators: [
     {
       type: mongoose.Schema.Types.ObjectId,

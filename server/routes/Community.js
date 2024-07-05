@@ -13,7 +13,7 @@ const {
   removeModerator,
   getAllCommunities,
   getCommunityPosts,
-//   getCommunityDoubts,
+  getCommunityDoubts,
 } = require("../controller/Community");
 
 router.post("/getDetails", auth, getCommunityDetails);
@@ -26,6 +26,6 @@ router.post("/addModerator", auth, addModerator);
 router.post("/removeModerator", auth, removeModerator);
 router.get("/getAllCommunities", auth, getAllCommunities);
 router.post("/getCommunityPosts", auth, getCommunityPosts);
-// router.post("/getCommunityDoubts", auth, getCommunityDoubts);
+router.post("/getCommunityDoubts", auth, getCommunityDoubts);
 
 module.exports = router;

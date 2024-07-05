@@ -2,7 +2,7 @@ const Community = require("../models/Community");
 const Tag = require("../models/Tag");
 const User = require("../models/User");
 const Post = require("../models/Post");
-// const Doubt = require("../models/Doubt");
+const Doubt = require("../models/Doubt");
 // const uploadToCloudinary = require("../utils/uploadToCloudinary");
 
 exports.createCommunity = async (req, res) => {
@@ -681,41 +681,41 @@ exports.getCommunityPosts = async (req, res) => {
   }
 };
 
-// exports.getCommunityDoubts = async (req, res) => {
-//   try {
-//     const name = req.body.name;
+exports.getCommunityDoubts = async (req, res) => {
+  try {
+    const name = req.body.name;
 
-//     if (!name) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Community name is required",
-//       });
-//     }
+    if (!name) {
+      return res.status(400).json({
+        success: false,
+        message: "Community name is required",
+      });
+    }
 
-//     const community = await Community.findOne({ name });
+    const community = await Community.findOne({ name });
 
-//     if (!community) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Community not found",
-//       });
-//     }
+    if (!community) {
+      return res.status(400).json({
+        success: false,
+        message: "Community not found",
+      });
+    }
 
-//     const doubts = await Doubt.find({ community: community._id })
-//       .populate("createdBy")
-//       .populate("tags")
-//       .populate("answers");
+    const doubts = await Doubt.find({ community: community._id })
+      .populate("createdBy")
+      .populate("tags")
+      .populate("answers");
 
-//     res.status(200).json({
-//       success: true,
-//       message: "Community doubts fetched successfully",
-//       data: doubts,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// };
+    res.status(200).json({
+      success: true,
+      message: "Community doubts fetched successfully",
+      data: doubts,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

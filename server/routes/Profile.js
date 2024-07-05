@@ -10,10 +10,10 @@ const {
   getUserMemberCommunity,
   getUserEntireDetails,
   getotheruserdetails,
-  // getUserDoubts,
+  getUserDoubts,
   getUserComments,
-  // getUserAnswer,
-} = require("../controllers/Profile");
+  getUserAnswer,
+} = require("../controller/Profile");
 
 router.delete("/deleteProfile", auth, deleteAccount);
 
@@ -25,5 +25,7 @@ router.get("/getUserMemberCommunity", auth, getUserMemberCommunity);
 router.get("/getUserEntireDetails", auth, getUserEntireDetails);
 router.post("/getotheruserdetails", auth, getotheruserdetails);
 router.get("/getUserComments", auth, getUserComments);
+router.get("/getUserDoubts", auth, getUserDoubts);
+router.get("/getUserAnswer", auth, getUserAnswer);
 
 module.exports = router;

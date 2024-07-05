@@ -4,6 +4,8 @@ const User = require("../models/User");
 // const uploadToCloudinary = require("../utils/uploadToCloudinary");
 const Comment = require("../models/Comment");
 const Post = require("../models/Post");
+const Answer = require("../models/Answer");
+const Doubt = require("../models/Doubt");
 
 exports.updateProfile = async (req, res) => {
     try {
@@ -98,6 +100,7 @@ exports.updateProfile = async (req, res) => {
       const userDetails = await User.findById(id)
         .populate("additionalDetails")
         .populate("interestedTags")
+        .populate("friends")
         .exec();
       res.status(200).json({
         success: true,
@@ -146,6 +149,39 @@ exports.updateProfile = async (req, res) => {
     }
   };
 
+  exports.getUserDoubts = async (req, res) => {
+    try {
+      const id = req.user.id;
+      const user = await User.findById(id).populate("doubts").exec();
+  
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+  
+      const doubt = await Doubt.find({ createdBy: id })
+        .populate("createdBy")
+        .populate("answers")
+        .populate("likes")
+        .populate("tags")
+        .populate("community")
+        .exec();
+  
+      res.status(200).json({
+        success: true,
+        message: "User Data fetched successfully",
+        data: doubt,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
   exports.getUserMemberCommunity = async (req, res) => {
     try {
       const id = req.user.id;
@@ -171,7 +207,8 @@ exports.updateProfile = async (req, res) => {
         .populate("additionalDetails")
         .populate("community")
         .populate("posts")
-        // .populate("doubts")
+        .populate("friends")
+        .populate("doubts")
         .exec();
       res.status(200).json({
         success: true,
@@ -191,7 +228,8 @@ exports.updateProfile = async (req, res) => {
         .populate("additionalDetails")
         .populate("community")
         .populate("posts")
-        // .populate("doubts")
+        .populate("friends")
+        .populate("doubts")
         .exec();
   
       if (!user) {
@@ -235,6 +273,32 @@ exports.updateProfile = async (req, res) => {
         success: true,
         message: "User Data fetched successfully",
         data: comments,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  };
+
+  exports.getUserAnswer = async (req, res) => {
+    try {
+      const userID = req.user.id;
+  
+      const answers = Answer.find({ answeredBy: userID });
+  
+      if (!userID) {
+        return res
+          .status(404)
+          .json({ success: false, message: "User not found" });
+      }
+  
+      res.status(200).json({
+        success: true,
+        message: "User Data fetched successfully",
+        data: answers,
       });
     } catch (error) {
       console.log(error);

@@ -36,6 +36,24 @@ const userSchema = new mongoose.Schema({
         ref: "Community",
       },
     ],
+    friends: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    requests_sent: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    requests_rec: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     profilePicture: {
       type: String,
     },
@@ -60,6 +78,16 @@ const userSchema = new mongoose.Schema({
         ref: "Post",
       },
     ],
+    doubts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Doubt",
+      },
+    ],
+    contribution: {
+      type: Number,
+      default: 0,
+    },
   });
   
   module.exports = mongoose.model("User", userSchema);

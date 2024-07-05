@@ -135,6 +135,7 @@ exports.sendOTP = async (req, res) => {
         password: hashedPassword,
         accountType,
         additionalDetails: profileDetails._id,
+        friends: [],
       profilePicture: `https://api.dicebear.com/7.x/initials/svg?seed=${firstName} ${lastName}`,
       coverPicture:
         "https://images.pexels.com/photos/13095812/pexels-photo-13095812.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
