@@ -1,0 +1,112 @@
+.post {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.post__header {
+    display: flex;
+    margin: 10px;
+
+}
+
+.post__avatar {
+    height: 35px !important;
+    width: 35px !important;
+}
+
+.post__info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.post__info>h2 {
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.post__info__desc {
+    margin-left: 5px;
+    margin-top: 8px;
+    padding: 0.1rem;
+    font-size: 12px;
+    color: gray;
+}
+
+.post__body>p {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.post__buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.likeButton {
+    margin-top: 15px;
+}
+
+.post__body img.post__image {
+    /* Define styles for the post image */
+    width: 100%;
+    /* Make the image fill the container */
+    max-height: 300px;
+    /* Set a maximum height if needed */
+    object-fit: cover;
+    /* Maintain aspect ratio and cover the container */
+    border-radius: 8px;
+    /* Add rounded corners if desired */
+}
+
+.post__tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 5px;
+    padding: 5px 5px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #333;
+    height: 10%;
+    margin-left: 10px;
+}
+
+
+.post__options {
+    margin-left: auto;
+    /* Move the menu button to the right */
+}
+
+.post_doubt {
+    border: 2px solid red;
+    /* Add your styling for doubts */
+}
+
+/* .post__doubtTag {
+    Style for the doubt tag
+    color: red;
+    font-weight: bold;
+    Add more styles as needed
+} */
+.post__doubtTag {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #80dbff;
+    /* Customize the background color */
+    color: white;
+    /* Customize the text color */
+    border-radius: 7px;
+    /* Add rounded corners if desired */
+    /* margin-right: 8px; */
+    margin-left: 10px;
+    /* Add some spacing to the right of the doubt tag */
+}
+
+.custom-quill .ql-tooltip {
+    height: 0;
+    overflow: hidden;
+}

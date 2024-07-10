@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@layer components {
+  .tab-style {
+    width: 50%;
+    padding: 1rem;
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.7s;
+    border-bottom-left-radius: 2rem;
+    border-top-left-radius: 2rem;
+    background-color: white;
+  }
+
+  .tab-active {
+    background-color: rgb(29, 78, 216);
+    color: white;
+  }
+}
+
+/* @media (max-width: 769px) {
+    .Tabs {
+      @apply px-0 py-8;
+    }
+
+    ul.nav {
+      @apply w-[90%];
+    }
+  } */

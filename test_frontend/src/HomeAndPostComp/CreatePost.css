@@ -1,0 +1,22 @@
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Custom styles retained */
+.ql-resize {
+    position: absolute;
+    box-sizing: border-box;
+    width: 6px;
+    height: 6px;
+    border: 1px solid #fff;
+    background-color: #333;
+    transform-origin: 50% 50%;
+    cursor: pointer;
+}
+
+.ql-selected {
+    border: 1px solid #007bff;
+    outline: 2px solid #ffffff;
+    outline-offset: -2px;
+    box-shadow: 0 0 3px #007bff;
+}

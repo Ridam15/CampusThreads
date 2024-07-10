@@ -1,0 +1,112 @@
+.feed {
+    width:45%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/* In your CSS file or style section */
+.link-style {
+    text-decoration: none;
+    color: inherit;
+    /* Keeps the link color the same as its parent */
+    /* Add any other styles you want to remove here */
+}
+
+.feed__inputContainer {
+    background-color: white;
+    padding: 10px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.createIcon_container {
+    /* margin-top: 1vh; */
+    margin-left: 2vh;
+}
+
+.feed__input {
+    border: 1px solid lightgray;
+    border-radius: 30px;
+    display: flex;
+    /* padding: 10px; */
+    color: gray;
+    padding-left: 15px;
+    height: 5vh;
+}
+
+.feed__input>form {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+.feed__input>form>button {
+    width: 18%;
+    border-radius: 15px;
+    font-family: 'Outfit', sans-serif;
+    color: white;
+    background-color: #3480cd;
+    border: 2px solid white;
+
+}
+
+/* form>Link {
+    color: black;
+} */
+
+.feed__input>form>button:hover {
+    background-color: white;
+    color: #3480cd;
+    border: 2px solid #3480cd;
+    transition: all 0.5s ease-in-out;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+}
+
+.feed__inputOptions {
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#startPostButton {
+    width: 70%;
+    border: none;
+    border-radius: 10px;
+    background-color: #f3f2ef;
+    color: gray;
+}
+
+#startPostButton:hover {
+    cursor: pointer;
+
+}
+
+#bt2 {
+    /* width: 30%; */
+    border-radius: 10px;
+    display: flex;
+    /* transform: translateY(-12px); */
+    font-family: 'Outfit', sans-serif;
+    color: white;
+    background-color: #3480cd;
+    border: 2px solid white;
+    padding: 2px;
+}
+
+#bt2:hover {
+    background-color: white;
+    color: #3480cd;
+    border: 2px solid #3480cd;
+    transition: all 0.5s ease-in-out;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+}
+
+.noUnderlineLink {
+    text-decoration: none;
+}

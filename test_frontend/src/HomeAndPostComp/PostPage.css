@@ -1,0 +1,35 @@
+/* PostPage.css */
+
+.post-page {
+    background: rgb(149, 156, 157);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.interaction-section {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.comment-list {
+    margin-top: 32px;
+}
+
+/* Include any additional styles as needed */
