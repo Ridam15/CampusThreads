@@ -9,6 +9,7 @@ exports.getallFriends = async (req, res) => {
             id: friend._id,
             firstName: friend.firstName,
             lastName: friend.lastName,
+            profilePicture: friend.profilePicture,
         }));
         res.status(200).json({
             success: true,

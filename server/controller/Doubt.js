@@ -155,9 +155,15 @@ exports.deleteDoubt = async (req, res) => {
     }
 
     for (let i = 0; i < doubt.tags.length; i++) {
-      const tag = await Tag.findOne({ name: doubt.tags[i] });
+      const tag = await Tag.findOne({ _id: doubt.tags[i] });
       tag.doubts.pull(doubt._id);
       await tag.save();
+    }
+
+    for (let i = 0; i < doubt.likes.length; i++) {
+      const user = await User.findById(doubt.likes[i]);
+      user.doubts.pull(doubt._id);
+      await user.save();
     }
 
     for (let i = 0; i < doubt.answers.length; i++) {
@@ -174,6 +180,7 @@ exports.deleteDoubt = async (req, res) => {
     await createdBy.save();
 
     await Doubt.findByIdAndDelete(doubtId);
+
     res.status(200).json({
       success: true,
       message: "Doubt deleted successfully",

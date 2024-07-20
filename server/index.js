@@ -15,6 +15,7 @@ const commentRoutes = require("./routes/Comment");
 const tagRoutes = require("./routes/Tag");
 const friendroutes = require("./routes/Friends");
 const searchroutes = require("./routes/search");
+const answerroutes = require("./routes/Answer");
 
 const PORT = process.env.PORT || 4000;
 const app = express();
@@ -40,6 +41,7 @@ app.use("/api/v1/doubt", doubtRoutes);
 app.use("/api/v1/comment", commentRoutes);
 app.use("/api/v1/friends", friendroutes);
 app.use("/api/v1/search", searchroutes);
+app.use("/api/v1/answer", answerroutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running at ${PORT}`);

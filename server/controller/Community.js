@@ -7,7 +7,7 @@ const Doubt = require("../models/Doubt");
 
 exports.createCommunity = async (req, res) => {
   try {
-    let { name, tags, description,pictureUrl,coverPictureUrl } = req.body;
+    let { name, tags, description, pictureUrl, coverPictureUrl } = req.body;
     let createdBy = req.user.id;
 
     if (!name || !createdBy) {
