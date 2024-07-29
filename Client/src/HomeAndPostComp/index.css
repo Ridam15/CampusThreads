@@ -1,0 +1,30 @@
+.app {
+  background-color: #f3f2ef;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Outfit', sans-serif;
+}
+
+.app__body {
+  display: flex;
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-weight: 400;
+  src: local('Outfit'), url(./fonts/Outfit/static/Outfit-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-weight: 700;
+  src: local('Outfit'), url(./fonts/Outfit/static/Outfit-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Outfit';
+  font-weight: 900;
+  src: local('Outfit'), url(./fonts/Outfit/static/Outfit-Black.ttf) format('truetype');
+}

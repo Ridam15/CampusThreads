@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* index.css */
+/* Base styles go here */
+
+/* Only apply these styles to components of profile.js */
+.Profile {
+    margin: -8px;
+
+    /* Small screens */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Media query for small screens */
+    @media screen and (max-width: 768px) {
+
+        /* Adjust styles for smaller screens */
+        .ml-72 {
+            margin-left: 8px;
+            /* Reduce left margin on smaller screens */
+        }
+
+        .w {
+            width: 100%;
+            /* Make the image full width on smaller screens */
+        }
+
+        .ml-6,
+        .ml-10,
+        .ml-80 {
+            margin-left: 8px;
+            /* Adjust left margins on smaller screens */
+        }
+
+        .w-28 {
+            width: 100%;
+            /* Make buttons full width on smaller screens */
+        }
+
+        .ml-80 {
+            margin-left: 8px;
+            /* Adjust left margin for smaller screens */
+        }
+    }
+}
