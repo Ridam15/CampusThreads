@@ -43,7 +43,7 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data.data);
+          // console.log(data.data);
           setPostDetails(data.data);
         } else {
           console.error('Failed to fetch posts');
@@ -133,7 +133,7 @@ function Post({ name, description, message, photoUrl, tags, numLikes, liked__alr
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data.data);
+          // console.log(data.data);
         } else {
           console.error('Failed to update post');
         }

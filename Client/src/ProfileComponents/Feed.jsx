@@ -36,11 +36,11 @@ export default function Feed() {
         if (response.ok) {
           const data = await response.json();
           // setAllDetails(data.data);
-          console.log(data.data);
+          // console.log(data.data);
           setPosts(data.data);
           // if (posts?.likes?.includes(localStorage.getItem("UserId")))
           //   console.log(1);
-          console.log(posts);
+          // console.log(posts);
         } else {
           console.error("Failed to fetch posts");
         }

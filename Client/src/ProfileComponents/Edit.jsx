@@ -134,7 +134,7 @@ const Edit = ({ onBackToApp }) => {
           return;
         }
         // console.log(token);
-        console.log(userDataToSubmit);
+        // console.log(userDataToSubmit);
 
         const response = await fetch(`${apiUrl}/api/v1/profile/updateProfile`, {
           method: 'PUT',
@@ -216,8 +216,8 @@ const Edit = ({ onBackToApp }) => {
         }
 
         const cloudinaryData = await cloudinaryResponse.json();
-        console.log(cloudinaryData.secure_url);
-        console.log(cloudinaryData.public_id);
+        // console.log(cloudinaryData.secure_url);
+        // console.log(cloudinaryData.public_id);
         if (file == files.profilePhoto)
           setProfilePhotoId(cloudinaryData.public_id);
         else {
@@ -229,7 +229,7 @@ const Edit = ({ onBackToApp }) => {
 
       const profilePhotoUrl = files.profilePhoto ? await uploadToCloudinary(files.profilePhoto) : null;
       const coverPhotoUrl = files.coverPhoto ? await uploadToCloudinary(files.coverPhoto) : null;
-      console.log(profilePhotoUrl);
+      // console.log(profilePhotoUrl);
       setProfilePhotoUrl(profilePhotoUrl);
       setCoverPhotoUrl(coverPhotoUrl);
       // const photoData = {

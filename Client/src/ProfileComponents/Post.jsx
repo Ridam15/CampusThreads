@@ -54,7 +54,7 @@ export default function Post({
 
   const handleDelete = async () => {
     const token = localStorage.getItem("Token");
-    console.log(id);
+    // console.log(id);
     try {
       const response = await fetch(
         "",

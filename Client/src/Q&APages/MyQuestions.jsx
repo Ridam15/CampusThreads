@@ -22,7 +22,7 @@ function MyQuestions() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data.data);
+                    // console.log(data.data);
                     setDoubts(data.data);
                 } else {
                     console.error("Failed to fetch doubts");

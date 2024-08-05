@@ -28,7 +28,7 @@ export default function CommunityProfile() {
                 });
 
                 const data = await response.json();
-                console.log(data.data);
+                // console.log(data.data);
                 setCommunityData(data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);

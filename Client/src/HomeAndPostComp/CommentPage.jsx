@@ -33,7 +33,7 @@ function CommentPage() {
         <div className='commentPage__post__header'>
           <Avatar src={header_img} className='post__avatar' />
           <div className='post__info'>
-            <h2>Jeel Viradiya</h2>
+            <h2></h2>
             <div className='post__info__desc'>
               {/* {tags ? tags.map((tag, index) => (
                 <span key={index} className='post__tag'>{tag ? tag.name : null}</span>
@@ -45,7 +45,7 @@ function CommentPage() {
 
         <div className='commentPage__post__body'>
           {/* <img src={photoUrl} alt='Post' className='post__image' /> */}
-          <p>Hello, My name is jeel.</p>
+          <p>Hello.</p>
         </div>
 
         <div className='commentPage__post__buttons'>

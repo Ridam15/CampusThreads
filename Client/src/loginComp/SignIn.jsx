@@ -158,7 +158,7 @@ function SignInForm() {
         <div className="form-container sign-in-container">
             <ToastContainer
                 position="top-left"
-                autoClose={false}
+                autoClose={2000}
                 hideProgressBar
                 closeOnClick
                 pauseOnHover

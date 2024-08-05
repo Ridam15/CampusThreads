@@ -32,7 +32,7 @@ export default function Doubts() {
 
         if (response.ok) {
           const data2 = await response.json();
-          console.log(data2.data);
+          // console.log(data2.data);
           setDoubts(data2.data);
         } else {
           console.error("Failed to fetch posts");

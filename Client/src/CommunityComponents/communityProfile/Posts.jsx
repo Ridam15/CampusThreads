@@ -24,7 +24,7 @@ export default function Posts({ communityName }) {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data.data);
+          // console.log(data.data);
           setPosts(data.data);
         } else {
           console.error("Failed to fetch posts");
