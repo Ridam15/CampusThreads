@@ -6,6 +6,7 @@ const Comment = require("../models/Comment");
 const Post = require("../models/Post");
 const Answer = require("../models/Answer");
 const Doubt = require("../models/Doubt");
+const Community = require("../models/Community");
 
 exports.updateProfile = async (req, res) => {
   try {
@@ -69,23 +70,47 @@ exports.deleteAccount = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
-    await Profile.findByIdAndDelete({
-      _id: new mongoose.Types.ObjectId(user.additionalDetails),
-    });
+    await Profile.findByIdAndDelete(user.additionalDetails);
 
-    for (const communityID of user.community) {
-      await User.findByIdAndUpdate(
-        communityID,
-        { $pull: { members: id } },
-        { new: true }
-      );
+    for (let comm of user.community) {
+      let cid = await Community.findById(comm);
+      if (cid) {
+        cid.members.pull(id);
+        await cid.save();
+      }
     }
 
-    await User.findByIdAndDelete({ _id: id });
+    for (let friendid of user.friends) {
+      let fid = await User.findById(friendid);
+      if (fid) {
+        fid.friends.pull(id);
+        await fid.save();
+      }
+    }
 
-    await Comment.deleteMany({ userId: id });
+    for (let requestSentId of user.requests_sent) {
+      let rsid = await User.findById(requestSentId);
+      if (rsid) {
+        rsid.requests_rec.pull(id);
+        await rsid.save();
+      }
+    }
+
+    for (let requestRecId of user.requests_rec) {
+      let rrid = await User.findById(requestRecId);
+      if (rrid) {
+        rrid.requests_sent.pull(id);
+        await rrid.save();
+      }
+    }
+
+    await Comment.deleteMany({ commentedBy: id });
     // await Like.deleteMany({ userId: id });
-    await Post.deleteMany({ userId: id });
+    await Post.deleteMany({ createdBy: id });
+    await Doubt.deleteMany({ createdBy: id });
+    await Answer.deleteMany({ answeredBy: id });
+
+    await User.findByIdAndDelete(id);
 
     res.status(200).json({
       success: true,
@@ -93,7 +118,7 @@ exports.deleteAccount = async (req, res) => {
     });
   } catch (error) {
     console.error('Error deleting user:', error);
-    res.status(500).json({ success: false, message: "Something went wrong" });
+    res.status(400).json({ success: false, message: "Something went wrong" });
   }
 };
 
